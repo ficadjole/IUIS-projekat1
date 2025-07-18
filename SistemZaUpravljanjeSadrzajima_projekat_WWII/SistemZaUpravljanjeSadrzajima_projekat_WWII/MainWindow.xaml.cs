@@ -1,15 +1,7 @@
 ﻿using SistemZaUpravljanjeSadrzajima_projekat_WWII.Model;
 using System.Collections.ObjectModel;
-using System.Text;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using Vezbe2.Helpers;
 
 namespace SistemZaUpravljanjeSadrzajima_projekat_WWII
@@ -21,57 +13,135 @@ namespace SistemZaUpravljanjeSadrzajima_projekat_WWII
     {
         private DataIO serializer = new DataIO();
         public ObservableCollection<User> Users { get; set; }
+
+        private string txtBoxNamePlaceholder = "Enter your username";
+
         public MainWindow()
         {
             InitializeComponent();
-
             Users = serializer.DeSerializeObject<ObservableCollection<User>>("UsersRepository.xml");
-        
+
+            txtBoxName.Text = txtBoxNamePlaceholder;
+            txtBoxName.Foreground = Brushes.Gray;
+
+
         }
 
         private void btnLogin_Click(object sender, RoutedEventArgs e)
         {
-            bool isExisted = false;
 
             string inputUserName = txtBoxName.Text;
-            string inputPassword = txtBoxPassword.Text;
+            string inputPassword = txtBoxPassword.Password;
 
             if (!validateFormData(inputUserName, inputPassword))
             {
-                
+                MessageBox.Show("Please fill all fields correctly!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+
+                txtBoxName.Text = txtBoxNamePlaceholder;
+                txtBoxName.Foreground = Brushes.Gray;
+
+                txtBoxPassword.Password = string.Empty;
+                UserNameErrorLable.Content = string.Empty;
+                PasswordErrorLable.Content = string.Empty;
+
+
             }
+            else
+            {
+                if (authUser(inputUserName, inputPassword))
+                {
+                    txtBoxName.Text = txtBoxNamePlaceholder;
+                    txtBoxName.Foreground = Brushes.Gray;
 
-            foreach (User user in Users) { 
-                
-                if(user.UserName.Equals(txtBoxName.Text) && user.Password.Equals(txtBoxPassword.Text)){
-                    isExisted = true;
-
-                    txtBoxName.Text = "Username";
-                    txtBoxPassword.Text = "Password";
-
-                    PageOfBattles pageOfBattles = new PageOfBattles(user);  
-
-                    pageOfBattles.Show();
-                        
-                    break;
+                    txtBoxPassword.Password = string.Empty;
+                    UserNameErrorLable.Content = string.Empty;
+                    PasswordErrorLable.Content = string.Empty;
                 }
-                    
+                else
+                {
+
+                    MessageBox.Show("User does not exist! Please try again!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    txtBoxName.Text = txtBoxNamePlaceholder;
+                    txtBoxName.Foreground = Brushes.Gray;
+
+                    txtBoxPassword.Password = string.Empty;
+                    UserNameErrorLable.Content = string.Empty;
+                    PasswordErrorLable.Content = string.Empty;
+
+
+                }
             }
 
-            if (!isExisted) MessageBox.Show("Nepostojeci korisnik");
         }
 
         private bool validateFormData(string userName, string password)
         {
-            if (userName.Trim().Equals(string.Empty) || password.Trim().Equals(string.Empty)) 
+
+            if (userName.Trim().Equals(string.Empty) || userName.Trim().Equals(txtBoxNamePlaceholder))
             {
 
                 UserNameErrorLable.Content = "Form filed cannot be left empyt!";
-                
+
+                return false;
+
+            }
+            else if (password.Trim().Equals(string.Empty))
+            {
+                PasswordErrorLable.Content = "Form filed cannot be left empyt!";
+
                 return false;
             }
 
             return true;
         }
+
+        private bool authUser(string userName, string password)
+        {
+            bool isExisted = false;
+            foreach (User user in Users)
+            {
+                if (user.UserName.Equals(userName) && user.Password.Equals(password))
+                {
+                    isExisted = true;
+                    txtBoxName.Text = txtBoxNamePlaceholder;
+                    txtBoxPassword.Password = string.Empty;
+                    PageOfBattles pageOfBattles = new PageOfBattles(user);
+                    pageOfBattles.ShowDialog();
+                    break;
+                }
+            }
+
+            return isExisted;
+        }
+
+        private void btnClose_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+        }
+
+        private void Window_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            this.DragMove();
+        }
+
+        private void txtBoxName_GotFocus(object sender, RoutedEventArgs e)
+        {
+            if (txtBoxName.Text.Trim().Equals(txtBoxNamePlaceholder))
+            {
+                txtBoxName.Text = string.Empty;
+                txtBoxName.Foreground = Brushes.Black;
+            }
+        }
+
+        private void txtBoxName_LostFocus(object sender, RoutedEventArgs e)
+        {
+            if (txtBoxName.Text.Trim().Equals(string.Empty))
+            {
+                txtBoxName.Text = txtBoxNamePlaceholder;
+                txtBoxName.Foreground = Brushes.LightSlateGray;
+            }
+        }
+
+
     }
 }

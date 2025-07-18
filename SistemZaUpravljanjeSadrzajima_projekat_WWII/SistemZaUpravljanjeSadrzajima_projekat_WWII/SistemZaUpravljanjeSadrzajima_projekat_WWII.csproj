@@ -8,4 +8,27 @@
     <UseWPF>true</UseWPF>
   </PropertyGroup>
 
+  <ItemGroup>
+    <None Remove="canvaBackground.jpg" />
+    <None Remove="Images\BattleOfElAlamein.jpg" />
+    <None Remove="Images\BattleOfKursk.jpg" />
+    <None Remove="Images\BattleOfStalingrad.jpg" />
+    <None Remove="Images\BattleOfSutjeska.jpg" />
+    <None Remove="petokraka.jpg" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Images\BattleOfElAlamein.jpg" />
+    <Resource Include="Images\BattleOfStalingrad.jpg" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Extended.Wpf.Toolkit" Version="4.7.25104.5739" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Images\BattleOfKursk.jpg" />
+    <Resource Include="Images\BattleOfSutjeska.jpg" />
+  </ItemGroup>
+
 </Project>

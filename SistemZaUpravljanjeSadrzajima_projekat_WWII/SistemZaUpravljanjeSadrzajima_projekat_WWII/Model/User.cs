@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using static SistemZaUpravljanjeSadrzajima_projekat_WWII.Enums.TypeOfUser;
+﻿using static SistemZaUpravljanjeSadrzajima_projekat_WWII.Enums.TypeOfUser;
 
 namespace SistemZaUpravljanjeSadrzajima_projekat_WWII.Model
 {
@@ -13,7 +8,7 @@ namespace SistemZaUpravljanjeSadrzajima_projekat_WWII.Model
         public string UserName { get; set; } = string.Empty;
         public string Password { get; set; } = string.Empty;
 
-        public UserRole UserRole { get; set; } 
+        public UserRole UserRole { get; set; }
 
         public User() { }
 
@@ -22,6 +17,6 @@ namespace SistemZaUpravljanjeSadrzajima_projekat_WWII.Model
             UserName = username;
             Password = password;
             UserRole = userRole;
-        }    
+        }
     }
 }

@@ -1,0 +1,174 @@
+﻿<Window x:Class="SistemZaUpravljanjeSadrzajima_projekat_WWII.AddNewBattle"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SistemZaUpravljanjeSadrzajima_projekat_WWII"
+        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+        mc:Ignorable="d"
+        WindowStyle="None"  
+        AllowsTransparency="True" 
+        SizeToContent="WidthAndHeight"   
+        Background="Transparent"
+        MouseLeftButtonDown="Window_MouseLeftButtonDown">
+    <Canvas  Height="600" Width="800">
+
+        <Path
+            x:Name="UIPath"
+            Stroke="DarkGray"
+            Fill="DarkOliveGreen"
+            StrokeThickness="2" HorizontalAlignment="Left" Height="600" Stretch="Fill" VerticalAlignment="Center" Width="800">
+            <Path.Data>
+                <PathGeometry>
+                    <PathFigure StartPoint="200,0">
+                        <LineSegment Point="150,20"/>
+                        <LineSegment Point="0,20"/>
+                        <LineSegment Point="0,50"/>
+                        <LineSegment Point="150,50"/>
+                        <LineSegment Point="150,80"/>
+                        <LineSegment Point="40,80"/>
+                        <LineSegment Point="10,160"/>
+                        <LineSegment Point="40,240"/>
+                        <LineSegment Point="350,240"/>
+                        <LineSegment Point="380,160"/>
+                        <LineSegment Point="350,80"/>
+                        <LineSegment Point="310,80"/>
+                        <LineSegment Point="310,20"/>
+                        <LineSegment Point="260,0"/>
+                    </PathFigure>
+                </PathGeometry>
+            </Path.Data>
+        </Path>
+        <Path Stroke="LightYellow" Fill="RED" StrokeThickness="2"  Height="100" Width="100" Canvas.Left="440" Canvas.Top="70" Stretch="Fill">
+            <Path.Data>
+                <PathGeometry>
+                    <PathGeometry.Figures>
+                        <PathFigure StartPoint="100,0" >
+                            <PathFigure.Segments>
+                                <LineSegment Point="75,20" />
+                                <LineSegment Point="0,20" />
+                                <LineSegment Point="50,40" />
+                                <LineSegment Point="20,70" />
+                                <LineSegment Point="100,50" />
+                                <LineSegment Point="180,70" />
+                                <LineSegment Point="150,40" />
+                                <LineSegment Point="200,20" />
+                                <LineSegment Point="130,20" />
+                                <LineSegment Point="100,0" />
+
+
+
+                            </PathFigure.Segments>
+                        </PathFigure>
+                    </PathGeometry.Figures>
+                </PathGeometry>
+            </Path.Data>
+        </Path>
+        <DockPanel Canvas.Left="110" Canvas.Top="220" Width="600" Height="350">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="69*" />
+                    <ColumnDefinition Width="20*" />
+                    <ColumnDefinition Width="70*" />
+                    <ColumnDefinition Width="40*" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="3*" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="2*" />
+                </Grid.RowDefinitions>
+
+                <TextBlock Grid.Column="0" Text="Battle Name:" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="5,0,0,0" FontSize="20" FontWeight="ExtraBold" Height="27" Width="129"/>
+                <Border Grid.Row="1" Grid.Column="0" x:Name="txtBoxBattleNameBorder" >
+                    <TextBox x:Name="txtBoxBattleName" VerticalAlignment="Center" HorizontalAlignment="Stretch" FontSize="15" GotFocus="BattleNameTextBox_GotFocus" LostFocus="BattleNameTextBox_LostFocus"/>
+                </Border>
+
+                <Label Grid.Column="0" Grid.Row="2" Foreground="Red" x:Name="btlNameErrorLbl"/>
+
+                <TextBlock Grid.Row="3" Grid.Column="0"  Text="Battle Date:" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="5,0,0,0" FontSize="20" FontWeight="ExtraBold" Height="27" Width="117"/>
+                <Border Grid.Row="4" Grid.Column="0" x:Name="txtBoxBattleDateBorder">
+                    <TextBox x:Name="txtBoxBattleDate" VerticalAlignment="Center" HorizontalAlignment="Stretch" FontSize="15" GotFocus="BattleDateTextBox_GotFocus" LostFocus="BattleDateTextBox_LostFocus"/>
+                </Border>
+                
+                <Label Grid.Column="0" Grid.Row="5" x:Name="btlDateErrorLbl" Foreground="Red"/> 
+                
+                <TextBlock Grid.Row="6" Grid.Column="0" Text="Battle Image:" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="5,0,0,0" FontSize="20" FontWeight="ExtraBold" Height="26" Width="131"/>
+
+                <StackPanel Grid.Row="7" Grid.Column="0" Grid.RowSpan="2" Background="DarkGray" Margin="5">
+                    <Image x:Name="imgBattle" Stretch="Fill" Height="90"/>
+                </StackPanel>
+
+                <Label Grid.Column="0" Grid.Row="9" x:Name="btlImgErrorLbl" Foreground="Red"/>
+
+                <Button Grid.Row="10" Content="Browse" x:Name="btnBrowse" Width="100" Height="45" FontSize="20" FontWeight="ExtraBold" Click="btnBrowse_Click" VerticalAlignment="Center" HorizontalAlignment="Center" Padding="5"/>
+
+                <TextBlock Grid.Column="2" Grid.Row="0" Grid.ColumnSpan="2" Text="Battle Description:" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="5,0,0,0" FontSize="20" FontWeight="ExtraBold" Height="27" Width="184"/>
+                <Label Grid.Row="8" Grid.Column="3" Panel.ZIndex="1000" Content="Words: 0" x:Name="lblWordCount" VerticalAlignment="Top" HorizontalAlignment="Right" VerticalContentAlignment="Top" Margin="10,0" />
+                <DockPanel Grid.Column="2" Grid.Row="1" Grid.RowSpan="8" Grid.ColumnSpan="2" Margin="5">
+                    <ToolBar
+                        x:Name="EditorToolBar"
+                        DockPanel.Dock="Top"
+                        >
+                        <ToggleButton x:Name="BoldButton" Content="B" FontWeight="Bold" Width="30" Height="30" Command="EditingCommands.ToggleBold" ToolTip="Bold"/>
+                        <Separator/>
+                        <ToggleButton x:Name="ItalicButton" Content="I" FontStyle="Italic" Width="30" Height="30" Command="EditingCommands.ToggleItalic" ToolTip="Italic"/>
+                        <Separator/>
+                        <ToggleButton x:Name="UnderlineButton" Content="U"  Width="30" Height="30" Command="EditingCommands.ToggleUnderline" ToolTip="Underline"/>
+                        <Separator/>
+                        <ComboBox 
+                            x:Name="FontFamilyCombox"
+                            Width="50"
+                            IsTextSearchCaseSensitive="False"
+                            IsTextSearchEnabled="True"
+                            SelectionChanged="FontFamilyCombox_SelectionChanged"
+                            >
+                            <ComboBox.ItemTemplate>
+                                <DataTemplate>
+                                    <TextBlock
+                                        Text="{Binding}"
+                                        FontFamily="{Binding}"
+                                        FontSize="12"
+                                        />
+                                </DataTemplate>
+                            </ComboBox.ItemTemplate>
+                        </ComboBox>
+                        <Separator/>
+                        <ComboBox 
+                            x:Name="FontSizeCombox"
+                            Width="50"
+                            IsTextSearchCaseSensitive="False"
+                            IsTextSearchEnabled="True"
+                            SelectionChanged="FontSizeCombox_SelectionChanged"
+                            ToolTip="Font size"
+                            >
+                            <ComboBoxItem Content="8" />
+                            <ComboBoxItem Content="10" />
+                            <ComboBoxItem Content="12" />
+                            <ComboBoxItem Content="14" />
+                            <ComboBoxItem Content="16" />
+                            <ComboBoxItem Content="18" />
+                            <ComboBoxItem Content="20" />
+                            <ComboBoxItem Content="22" />
+                        </ComboBox>
+                            <Separator/>
+                        <xctk:ColorPicker Name="ColorPickerText" SelectedColorChanged="ColorPickerText_SelectedColorChanged" DisplayColorAndName="True" Width="70"/>
+                    </ToolBar>
+                    <RichTextBox x:Name="EditorRichTextBox" SelectionChanged="EditorRichTextBox_SelectionChanged" KeyUp="EditorRichTextBox_KeyUp" FontFamily="Courier New"/>
+                    
+                </DockPanel>
+
+                <Button Grid.Row="10" Grid.Column="2" Content="Add" VerticalAlignment="Center" HorizontalAlignment="Center" Width="100" Height="45" FontSize="20" FontWeight="ExtraBold" Name="btnAddBattle" Padding="5" Click="btnAddBattle_Click" />
+                <Button Grid.Row="10" Grid.Column="3" Content="Close" VerticalAlignment="Center" HorizontalAlignment="Center" Width="100" Height="45" FontSize="20" FontWeight="ExtraBold" Name="btnClose" Click="btnClose_Click" Padding="5"/>
+            </Grid>
+
+        </DockPanel>
+    </Canvas>
+</Window>   
