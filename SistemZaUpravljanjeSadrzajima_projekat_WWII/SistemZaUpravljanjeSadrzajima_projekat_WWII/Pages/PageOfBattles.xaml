@@ -5,13 +5,15 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SistemZaUpravljanjeSadrzajima_projekat_WWII"
         xmlns:source="*"
+         xmlns:fa="http://schemas.fontawesome.com/icons/svg"
         mc:Ignorable="d"
         Title="DataTable"
         WindowStyle="None"  
         AllowsTransparency="True" 
         SizeToContent="WidthAndHeight"   
         Background="Transparent"
-        MouseLeftButtonDown="Window_MouseLeftButtonDown">
+        MouseLeftButtonDown="Window_MouseLeftButtonDown"
+        WindowStartupLocation="CenterScreen">
     <Canvas  Height="600" Width="800">
 
         <Path
@@ -144,11 +146,44 @@
 
                     </DataGrid.Columns>
                 </DataGrid>
-                
-                
-                <Button Grid.Column="0" Grid.Row="1" x:Name="btnAdd" Margin="5" FontSize="20" FontWeight="ExtraBold" Click="btnAdd_Click" Visibility="Hidden">Add</Button>
-                <Button Grid.Column="1" Grid.Row="1" x:Name="btnDelete" Margin="5" FontSize="20" FontWeight="ExtraBold" Click="btnDelete_Click" Visibility="Hidden">Delete</Button>
-                <Button Grid.Column="2" Grid.Row="1" x:Name="btnClose" Margin="5" Click="btnClose_Click" FontSize="20" FontWeight="ExtraBold">Close</Button>
+
+
+                <Button Grid.Column="0" Grid.Row="1" x:Name="btnAdd" Margin="5" FontSize="20" FontWeight="ExtraBold" Click="btnAdd_Click" Visibility="Hidden" Cursor="Hand">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="Add Battle" FontWeight="ExtraBold" Margin="0,0,5,0"/>
+                        <fa:SvgAwesome 
+                            Height="25"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            PrimaryColor="Black"
+                            Icon="Solid_Crosshairs"
+                            />      
+                    </StackPanel>
+                </Button>
+                <Button Grid.Column="1" Grid.Row="1" x:Name="btnDelete" Margin="5" FontSize="20" FontWeight="ExtraBold" Click="btnDelete_Click" Visibility="Hidden" Cursor="Hand">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="Delete" Margin="0,0,10,0"/>
+                        <fa:SvgAwesome 
+                            Height="25"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            PrimaryColor="Black"
+                            Icon="Solid_Cross"
+                            />
+                    </StackPanel>
+                </Button>
+                <Button Grid.Column="2" Grid.Row="1" x:Name="btnClose" Margin="5" Click="btnClose_Click" FontSize="20" FontWeight="ExtraBold" Cursor="Hand">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="Close" Margin="0,0,10,0"/>
+                        <fa:SvgAwesome 
+                            Height="25"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            PrimaryColor="Black"
+                            Icon="Solid_SkullCrossbones"
+                            />
+                    </StackPanel>
+                </Button>
             </Grid>
         </DockPanel>
     </Canvas>

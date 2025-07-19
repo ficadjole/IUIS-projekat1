@@ -234,10 +234,14 @@ namespace SistemZaUpravljanjeSadrzajima_projekat_WWII
                 MessageBox.Show("Please add battle image before adding a battle.", "Validation Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 btlImgErrorLbl.Content = "Image cannot be empty!";
             }
-            else if (EditorRichTextBox.Document.Blocks.Count == 0)
+            else if (validationEditorRichTextBox())
             {
                 MessageBox.Show("Please write battle description before adding a battle.", "Validation Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                richTxtBoxErrorLbl.Content = "Description cannot be empty!";
+                EditorRichTextBox.BorderBrush = Brushes.Red;
+                EditorRichTextBox.BorderThickness = new Thickness(1, 1, 1, 1);
 
+                
             }
             else
             {
@@ -247,20 +251,29 @@ namespace SistemZaUpravljanjeSadrzajima_projekat_WWII
             return isValid;
         }
 
+        private bool validationEditorRichTextBox() { 
+        
+            string text = new TextRange(EditorRichTextBox.Document.ContentStart, EditorRichTextBox.Document.ContentEnd).Text.Trim(); //uzimamo ceo tekst iz richTextBox-a
+
+            if (string.IsNullOrWhiteSpace(text)) {
+                return true;
+            }
+            else { return false; }
+
+        }
+
         private void EditorRichTextBox_KeyUp(object sender, System.Windows.Input.KeyEventArgs e)
         {
             int numberOfWords = 0;
 
-            TextRange textRange = new TextRange(EditorRichTextBox.Document.ContentStart, EditorRichTextBox.Document.ContentEnd);
-
-            string text = textRange.Text.Trim();
+            string text = new TextRange(EditorRichTextBox.Document.ContentStart, EditorRichTextBox.Document.ContentEnd).Text.Trim();
 
             if (!string.IsNullOrEmpty(text))
             {
                 numberOfWords = text.Split(new char[] { ' ', '\n', '\r' }, System.StringSplitOptions.RemoveEmptyEntries).Length;
             }
 
-            lblWordCount.Content = $"Word Count: {numberOfWords}";
+            lblWordCount.Content = $"Words: {numberOfWords}";
         }
     }
 }

@@ -80,14 +80,14 @@ namespace SistemZaUpravljanjeSadrzajima_projekat_WWII
             if (userName.Trim().Equals(string.Empty) || userName.Trim().Equals(txtBoxNamePlaceholder))
             {
 
-                UserNameErrorLable.Content = "Form filed cannot be left empyt!";
+                UserNameErrorLable.Content = "Username filed cannot be left empyt!";
 
                 return false;
 
             }
             else if (password.Trim().Equals(string.Empty))
             {
-                PasswordErrorLable.Content = "Form filed cannot be left empyt!";
+                PasswordErrorLable.Content = "Password filed cannot be left empyt!";
 
                 return false;
             }

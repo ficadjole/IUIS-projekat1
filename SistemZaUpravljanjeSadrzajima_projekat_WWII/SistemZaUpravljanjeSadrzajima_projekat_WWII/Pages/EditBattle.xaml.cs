@@ -1,6 +1,5 @@
 ﻿using Microsoft.Win32;
 using SistemZaUpravljanjeSadrzajima_projekat_WWII.Model;
-using System.Collections.ObjectModel;
 using System.IO;
 using System.Windows;
 using System.Windows.Controls;
@@ -19,6 +18,7 @@ namespace SistemZaUpravljanjeSadrzajima_projekat_WWII.Pages
         private Battle OldBattle { get; set; }
         private string battleNamePlaceHolder = "Enter battle name";
         private string battleDatePlaceHolder = "Enter year of battle";
+
         public EditBattle(Battle battle)
         {
             InitializeComponent();
@@ -30,6 +30,7 @@ namespace SistemZaUpravljanjeSadrzajima_projekat_WWII.Pages
             txtBoxBattleDate.Text = battle.YearOfBattle.ToString();
 
             txtBoxBattleName.Text = battle.NameOfBattle;
+
 
             if (!string.IsNullOrEmpty(battle.ImgUrl))
             {
@@ -146,7 +147,7 @@ namespace SistemZaUpravljanjeSadrzajima_projekat_WWII.Pages
 
         private void ColorPickerText_SelectedColorChanged(object sender, RoutedPropertyChangedEventArgs<Color?> e)
         {
-                EditorRichTextBox.Selection.ApplyPropertyValue(TextElement.ForegroundProperty, new SolidColorBrush((Color)ColorPickerText.SelectedColor));
+            EditorRichTextBox.Selection.ApplyPropertyValue(TextElement.ForegroundProperty, new SolidColorBrush((Color)ColorPickerText.SelectedColor));
         }
 
         private void btnModifyBattle_Click(object sender, RoutedEventArgs e)
@@ -161,16 +162,16 @@ namespace SistemZaUpravljanjeSadrzajima_projekat_WWII.Pages
 
 
 
-                    File.Delete(ModifiedBattle.RtfUrl); //brise stari rtf fajl bitke
+                File.Delete(ModifiedBattle.RtfUrl); //brise stari rtf fajl bitke
 
-                    ModifiedBattle.NameOfBattle = txtBoxBattleName.Text;
-                    ModifiedBattle.YearOfBattle = int.Parse(txtBoxBattleDate.Text);
-                    ModifiedBattle.RtfUrl = writeInRTF();
-                    ModifiedBattle.ImgUrl = imgBattle.Source.ToString();
-                    ModifiedBattle.TimeAdded = DateTime.Now.ToString("dd-MM-yyyy");
+                ModifiedBattle.NameOfBattle = txtBoxBattleName.Text;
+                ModifiedBattle.YearOfBattle = int.Parse(txtBoxBattleDate.Text);
+                ModifiedBattle.RtfUrl = writeInRTF();
+                ModifiedBattle.ImgUrl = imgBattle.Source.ToString();
+                ModifiedBattle.TimeAdded = DateTime.Now.ToString("dd-MM-yyyy");
 
-                    MessageBox.Show("Battle successfully modified!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
-                    this.Close();
+                MessageBox.Show("Battle successfully modified!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+                this.Close();
 
             }
 
@@ -268,10 +269,12 @@ namespace SistemZaUpravljanjeSadrzajima_projekat_WWII.Pages
                 MessageBox.Show("Please add battle image before adding a battle.", "Validation Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 btlImgErrorLbl.Content = "Image cannot be empty!";
             }
-            else if (EditorRichTextBox.Document.Blocks.Count == 0)
+            else if (validationEditorRichTextBox())
             {
                 MessageBox.Show("Please write battle description before adding a battle.", "Validation Error", MessageBoxButton.OK, MessageBoxImage.Error);
-
+                richTxtBoxErrorLbl.Content = "Description cannot be empty!";
+                EditorRichTextBox.BorderBrush = Brushes.Red;
+                EditorRichTextBox.BorderThickness = new Thickness(1, 1, 1, 1);
             }
             else
             {
@@ -281,20 +284,31 @@ namespace SistemZaUpravljanjeSadrzajima_projekat_WWII.Pages
             return isValid;
         }
 
+        private bool validationEditorRichTextBox()
+        {
+
+            string text = new TextRange(EditorRichTextBox.Document.ContentStart, EditorRichTextBox.Document.ContentEnd).Text.Trim(); //uzimamo ceo tekst iz richTextBox-a
+
+            if (string.IsNullOrWhiteSpace(text))
+            {
+                return true;
+            }
+            else { return false; }
+
+        }
+
         private void EditorRichTextBox_KeyUp(object sender, System.Windows.Input.KeyEventArgs e)
         {
             int numberOfWords = 0;
 
-            TextRange textRange = new TextRange(EditorRichTextBox.Document.ContentStart, EditorRichTextBox.Document.ContentEnd);
-
-            string text = textRange.Text.Trim();
+            string text = new TextRange(EditorRichTextBox.Document.ContentStart, EditorRichTextBox.Document.ContentEnd).Text.Trim();
 
             if (!string.IsNullOrEmpty(text))
             {
                 numberOfWords = text.Split(new char[] { ' ', '\n', '\r' }, System.StringSplitOptions.RemoveEmptyEntries).Length;
             }
 
-            lblWordCount.Content = $"Word Count: {numberOfWords}";
+            lblWordCount.Content = $"Word: {numberOfWords}";
         }
     }
 }

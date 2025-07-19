@@ -51,8 +51,6 @@ namespace SistemZaUpravljanjeSadrzajima_projekat_WWII
         {
             AddNewBattle addNewBattleWindow = new AddNewBattle(Battles);
 
-            addNewBattleWindow.Owner = this;
-
             addNewBattleWindow.ShowDialog();
         }
 
@@ -63,44 +61,103 @@ namespace SistemZaUpravljanjeSadrzajima_projekat_WWII
 
         private void btnDelete_Click(object sender, RoutedEventArgs e)
         {
-            
+
+            if (!validationDelete())
+            {
+                return; //ako validacija nije prosla, nece se izvrsiti brisanje
+            }
+
+
+            if (chckBoxSelectAll.IsChecked == true) //slucaj ako su svi selektovani
+            {
+
+                MessageBoxResult result = MessageBox.Show("Are you sure you want to delete all battles?", "Confirm Deletion", MessageBoxButton.YesNo, MessageBoxImage.Question);
+
+                if (result == MessageBoxResult.Yes)
+                {
+                    foreach (var battle in Battles.ToList())
+                    {
+                        File.Delete(battle.RtfUrl); //brise rtf fajl bitke
+                    }
+                    Battles.Clear(); //uklanja sve bitke iz kolekcije
+
+                    MessageBox.Show("All battles have been successfully deleted!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+                }
+                else if (result == MessageBoxResult.No)
+                {
+                    chckBoxSelectAll.IsChecked = false; //ako korisnik odustane od brisanja, restartovati da ne bude selektovano
+
+                    foreach (var battle in Battles)
+                    {
+                        battle.Selected = false; //ako korisnik odustane od brisanja, restartovati da ne budu selektovani
+                    }
+
+                }
+
+            }
+            else
+            {
+                //slucaj ako je bar jedan selektovan, jer na primer mozda je korisnik greskom uzeo Kursk i Sutjesku, a hteo je samo Kursk, moci ce da ne izbrise Sutjesku
+
+                foreach (var battle in Battles.ToList())
+                {
+                    if ((bool)battle.Selected)
+                    {
+
+                        MessageBoxResult result = MessageBox.Show($"Are you sure you want to delete the battle: {battle.NameOfBattle}?", "Confirm Deletion", MessageBoxButton.YesNo, MessageBoxImage.Question);
+
+                        if (result == MessageBoxResult.Yes)
+                        {
+
+                            Battles.Remove(battle); //uklanja bitku iz kolekcije
+
+                            File.Delete(battle.RtfUrl); //brise rtf fajl bitke
+
+                            MessageBox.Show($"Battle {battle.NameOfBattle} has been successfully deleted!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+                        }
+                        else if (result == MessageBoxResult.No)
+                        {
+
+                            battle.Selected = false; //ako korisnik odustane od brisanja, nece se ukloniti iz kolekcije
+                            continue;
+                        }
+
+                    }
+                }
+            }
+
+            dataGridBattles.Items.Refresh();
+            SaveDataAsXML();
+
+        }
+
+        private bool validationDelete()
+        {
 
             bool isAnySelected = false;
 
             if (Battles.Count == 0)
             {
                 MessageBox.Show("There are no battles to delete!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                return;
+                return false;
             }
 
-            foreach (var battle in Battles.ToList())
+            foreach (var battle in Battles)
             {
-                if ((bool)battle.Selected)
+                if (battle.Selected == true)
                 {
-                    Battles.Remove(battle); //uklanja bitku iz kolekcije
-
-                    File.Delete(battle.RtfUrl); //brise rtf fajl bitke
-
                     isAnySelected = true;
+                    break;
                 }
             }
 
-            if (!isAnySelected)
+            if (!isAnySelected && chckBoxSelectAll.IsChecked == false) //slucaj ako nijedna nije selektovana
             {
-                MessageBox.Show("No battles selected for deletion!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                return;
-            }
-            else
-            {
-                MessageBox.Show("Selected battles have been deleted successfully!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
-
-
-
-                dataGridBattles.Items.Refresh();
-                SaveDataAsXML();
+                MessageBox.Show("Please select at least one battle to delete!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                return false;
             }
 
-
+            return true;
 
         }
 
@@ -155,7 +212,6 @@ namespace SistemZaUpravljanjeSadrzajima_projekat_WWII
                 if (hyperlink.DataContext is Battle battle)
                 {
                     EditBattle editBattle = new EditBattle(battle);
-                    editBattle.Owner = this;
                     editBattle.ShowDialog();
 
                     dataGridBattles.Items.Refresh();

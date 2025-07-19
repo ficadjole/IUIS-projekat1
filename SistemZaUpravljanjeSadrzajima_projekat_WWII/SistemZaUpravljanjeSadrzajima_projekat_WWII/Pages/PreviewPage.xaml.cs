@@ -14,7 +14,7 @@ namespace SistemZaUpravljanjeSadrzajima_projekat_WWII
         public PreviewPage(Battle battle)
         {
             InitializeComponent();
-             
+
             txtBoxBattleName.Text = " - " + battle.NameOfBattle;
             txtBoxBattleDate.Text = " - " + battle.YearOfBattle.ToString();
 
@@ -35,11 +35,11 @@ namespace SistemZaUpravljanjeSadrzajima_projekat_WWII
             {
                 try
                 {
-                    
+
                     FlowDocument flowDoc = new FlowDocument();
                     TextRange textRange = new TextRange(flowDoc.ContentStart, flowDoc.ContentEnd);
                     using (var stream = new System.IO.FileStream(battle.RtfUrl, System.IO.FileMode.Open))
-                    {   
+                    {
                         textRange.Load(stream, DataFormats.Rtf);
                     }
                     EditorRichTextBox.Document = flowDoc;
