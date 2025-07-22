@@ -194,7 +194,7 @@ namespace SistemZaUpravljanjeSadrzajima_projekat_WWII
         private string writeInRTF()
         {
 
-            string rtfFilePath = @"C:\Users\Filip\OneDrive\Desktop\SistemZaUpravljanjeSadrzajima_projekat_WWII\SistemZaUpravljanjeSadrzajima_projekat_WWII\RTFs\" + txtBoxBattleName.Text.Trim() + ".rtf";
+            string rtfFilePath = @"../../../RTFs/" + txtBoxBattleName.Text.Trim() + ".rtf";
 
             TextRange textRange = new TextRange(EditorRichTextBox.Document.ContentStart, EditorRichTextBox.Document.ContentEnd);
 
