@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ArrayOfBattle xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Battle>
+    <NameOfBattle>Battle of Kursk</NameOfBattle>
+    <YearOfBattle>1943</YearOfBattle>
+    <ImgUrl>/Images/BattleOfKursk.jpg</ImgUrl>
+    <RtfUrl>../../../RTFs/Battle of Kursk.rtf</RtfUrl>
+    <TimeAdded>18-07-2025</TimeAdded>
+    <Selected>false</Selected>
+  </Battle>
+  <Battle>
+    <NameOfBattle>Battle of Sutjeska</NameOfBattle>
+    <YearOfBattle>1943</YearOfBattle>
+    <ImgUrl>/Images/BattleOfSutjeska.jpg</ImgUrl>
+    <RtfUrl>../../../RTFs/Battle of Sutjeska.rtf</RtfUrl>
+    <TimeAdded>18-07-2025</TimeAdded>
+    <Selected>false</Selected>
+  </Battle>
+  <Battle>
+    <NameOfBattle>Battle of Normandy</NameOfBattle>
+    <YearOfBattle>1944</YearOfBattle>
+    <ImgUrl>/Images/BattleOfStalingrad.jpg</ImgUrl>
+    <RtfUrl>../../../RTFs/Battle of Normandy.rtf</RtfUrl>
+    <TimeAdded>18-07-2025</TimeAdded>
+    <Selected>false</Selected>
+  </Battle>
+  <Battle>
+    <NameOfBattle>First Battle of El Alamein</NameOfBattle>
+    <YearOfBattle>1942</YearOfBattle>
+    <ImgUrl>/Images/BattleOfElAlamein.jpg</ImgUrl>
+    <RtfUrl>../../../RTFs/First Battle of El Alamein.rtf</RtfUrl>
+    <TimeAdded>18-07-2025</TimeAdded>
+    <Selected>false</Selected>
+  </Battle>
+</ArrayOfBattle>

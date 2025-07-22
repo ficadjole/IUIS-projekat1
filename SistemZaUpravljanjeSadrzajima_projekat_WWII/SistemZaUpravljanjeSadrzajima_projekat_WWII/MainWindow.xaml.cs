@@ -19,7 +19,7 @@ namespace SistemZaUpravljanjeSadrzajima_projekat_WWII
         public MainWindow()
         {
             InitializeComponent();
-            Users = serializer.DeSerializeObject<ObservableCollection<User>>("UsersRepository.xml");
+            Users = serializer.DeSerializeObject<ObservableCollection<User>>("../../../Repositories/UsersRepository.xml");
 
             txtBoxName.Text = txtBoxNamePlaceholder;
             txtBoxName.Foreground = Brushes.Gray;

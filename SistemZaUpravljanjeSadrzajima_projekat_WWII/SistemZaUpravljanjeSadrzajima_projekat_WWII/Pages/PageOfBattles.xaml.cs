@@ -31,7 +31,7 @@ namespace SistemZaUpravljanjeSadrzajima_projekat_WWII
             }
 
 
-            Battles = serializer.DeSerializeObject<ObservableCollection<Battle>>("BattlesRepository.xml");
+            Battles = serializer.DeSerializeObject<ObservableCollection<Battle>>("../../../Repositories/BattlesRepository.xml");
             Battles = this.Battles;
             this.DataContext = this;
         }
@@ -56,7 +56,7 @@ namespace SistemZaUpravljanjeSadrzajima_projekat_WWII
 
         private void SaveDataAsXML()
         {
-            serializer.SerializeObject(Battles, "BattlesRepository.xml");
+            serializer.SerializeObject(Battles, "../../../Repositories/BattlesRepository.xml");
         }
 
         private void btnDelete_Click(object sender, RoutedEventArgs e)
