@@ -241,7 +241,7 @@ namespace SistemZaUpravljanjeSadrzajima_projekat_WWII
                 EditorRichTextBox.BorderBrush = Brushes.Red;
                 EditorRichTextBox.BorderThickness = new Thickness(1, 1, 1, 1);
 
-                
+
             }
             else
             {
@@ -251,11 +251,13 @@ namespace SistemZaUpravljanjeSadrzajima_projekat_WWII
             return isValid;
         }
 
-        private bool validationEditorRichTextBox() { 
-        
+        private bool validationEditorRichTextBox()
+        {
+
             string text = new TextRange(EditorRichTextBox.Document.ContentStart, EditorRichTextBox.Document.ContentEnd).Text.Trim(); //uzimamo ceo tekst iz richTextBox-a
 
-            if (string.IsNullOrWhiteSpace(text)) {
+            if (string.IsNullOrWhiteSpace(text))
+            {
                 return true;
             }
             else { return false; }
